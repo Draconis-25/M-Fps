@@ -50,6 +50,8 @@ func _process(delta):
 		camera.global_transform = head.global_transform
 
 	change_bar.value = timer.time_left
+	health_bar.value = health
+	ability_bar.value =ability
 
 
 func _physics_process(delta):
