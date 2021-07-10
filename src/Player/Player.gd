@@ -30,6 +30,7 @@ onready var ability_bar = $GUI/AbilityBar
 func _ready():
 	#hides the cursor
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	Global.player = self
 
 func _input(event):
 	#get mouse input for camera rotation
@@ -83,3 +84,7 @@ func _physics_process(delta):
 	move_and_slide_with_snap(movement, snap, Vector3.UP)
 
 
+
+
+func _on_Timer_timeout():
+	Global.mode = !Global.mode
