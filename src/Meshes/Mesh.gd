@@ -2,8 +2,8 @@ extends Spatial
 
 export(int, 1, 2) var type = 1
 
-export var mat = preload("res://src/Meshes/mesh.tres")
-export var tmat = preload("res://src/Meshes/mesh-t.tres")
+export var mat = preload("res://res/Greengrid.tres")
+export var tmat = preload("res://res/Redgrid.tres")
 
 onready var collision =  $StaticBody/CollisionShape
 

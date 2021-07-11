@@ -1,4 +1,5 @@
 extends KinematicBody
+class_name Player
 
 const ACCEL_DEFAULT = 7
 const ACCEL_AIR = 1
@@ -50,7 +51,7 @@ func _process(delta):
 		camera.set_as_toplevel(false)
 		camera.global_transform = head.global_transform
 
-	change_bar.value = timer.time_left
+	change_bar.value = timer.time_left *2
 	health_bar.value = health
 	ability_bar.value =ability
 
