@@ -46,6 +46,8 @@ func _process(_delta):
 			else get_viewport().size
 	)
 
+	self.visible = Global.w_visible
+
 	if not sticky:
 		# For non-sticky waypoints, we don't need to clamp and calculate
 		# the position if the waypoint goes off screen.
