@@ -1,6 +1,20 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/Player/PauseMenu/Pause.gd" type="Script" id=1]
+[ext_resource path="res://src/Main Menu/buttonhover.tres" type="StyleBox" id=2]
+[ext_resource path="res://src/Main Menu/buttonnormal.tres" type="StyleBox" id=3]
+
+[sub_resource type="StyleBoxFlat" id=2]
+draw_center = false
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id=1]
 draw_center = false
@@ -36,6 +50,9 @@ margin_left = 60.0
 margin_top = -60.0
 margin_right = 240.0
 margin_bottom = -30.0
+custom_styles/hover = ExtResource( 2 )
+custom_styles/pressed = ExtResource( 3 )
+custom_styles/focus = SubResource( 2 )
 custom_styles/normal = SubResource( 1 )
 text = "Continue"
 __meta__ = {
@@ -49,6 +66,9 @@ margin_left = 60.0
 margin_top = -120.0
 margin_right = 240.0
 margin_bottom = -90.0
+custom_styles/hover = ExtResource( 2 )
+custom_styles/pressed = ExtResource( 3 )
+custom_styles/focus = SubResource( 2 )
 custom_styles/normal = SubResource( 1 )
 text = "Restart"
 __meta__ = {
@@ -61,6 +81,9 @@ anchor_bottom = 0.5
 margin_left = 60.0
 margin_right = 240.0
 margin_bottom = 30.0
+custom_styles/hover = ExtResource( 2 )
+custom_styles/pressed = ExtResource( 3 )
+custom_styles/focus = SubResource( 2 )
 custom_styles/normal = SubResource( 1 )
 text = "Exit"
 __meta__ = {

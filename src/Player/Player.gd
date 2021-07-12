@@ -33,6 +33,7 @@ onready var timer = $Timer
 onready var change_bar = $GUI/ChangeBar
 onready var health_bar = $GUI/HealthBar
 onready var ability_bar = $GUI/AbilityBar
+onready var label = $GUI/Label
 
 func _ready():
 	#hides the cursor
@@ -89,8 +90,10 @@ func _physics_process(delta):
 	
 	match avalue:
 		0:
+			label.text = "Mode: DoJu"
 			double_jump()
 		1:
+			label.text = "Mode: Blink"
 			blink()
 	#make it move
 	velocity = velocity.linear_interpolate(direction * speed, accel * delta)

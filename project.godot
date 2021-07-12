@@ -26,25 +26,25 @@ _global_script_class_icons={
 
 [application]
 
-config/name="magarajam"
-run/main_scene="res://src/World.tscn"
+config/name="Error: No Name Found"
+run/main_scene="res://src/Main Menu/MainMenu.tscn"
+boot_splash/image="res://res/Bsplash.png"
+boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 
 [autoload]
 
 Global="*res://src/Autoload/Global.gd"
 Pause="*res://src/Player/PauseMenu/Pause.tscn"
+Transition="*res://src/Autoload/transition/Transition.tscn"
 
 [display]
 
 window/size/width=1920
 window/size/height=1080
+window/size/fullscreen=true
 window/size/test_width=960
 window/size/test_height=540
-
-[editor_plugins]
-
-enabled=PoolStringArray(  )
 
 [input]
 
