@@ -8,3 +8,4 @@ func transition(var scene):
 	$AnimationPlayer.play_backwards("fade")
 	yield($AnimationPlayer, "animation_finished")
 	$ColorRect.visible = false
+	

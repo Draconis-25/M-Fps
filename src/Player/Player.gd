@@ -118,3 +118,4 @@ func blink():
 	if Input.is_action_just_pressed("lmb"):
 		direction *= blink_dist
 
+
