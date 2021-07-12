@@ -1,4 +1,5 @@
 extends Control
+class_name Waypoint
 
 # Some margin to keep the marker away from the screen's corners.
 const MARGIN = 8
