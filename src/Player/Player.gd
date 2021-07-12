@@ -1,9 +1,12 @@
 extends KinematicBody
 class_name Player
 
-var speed = 7
-var acceleration = 10
-var gravity = 0.09
+const ACCEL_DEFAULT = 7
+const ACCEL_AIR = 1
+onready var accel = ACCEL_DEFAULT
+
+export var speed = 7
+export var gravity = 30
 export var jump = 10
 var jump_num = 0
 var blink_dist = 25
@@ -17,19 +20,19 @@ var ability = 50
 
 export var cam_accel = 40
 export var sensitivity = 0.5
-
+var snap
 
 var direction = Vector3()
 var velocity = Vector3()
-var fall = Vector3() 
-
+var gravity_vec = Vector3()
+var movement = Vector3()
 
 onready var head = $Head
 onready var camera = $Head/Camera
 onready var timer = $Timer
 onready var change_bar = $GUI/ChangeBar
-#onready var health_bar = $GUI/HealthBar
-#onready var ability_bar = $GUI/AbilityBar
+onready var health_bar = $GUI/HealthBar
+onready var ability_bar = $GUI/AbilityBar
 
 func _ready():
 	#hides the cursor
@@ -57,18 +60,31 @@ func _process(delta):
 		camera.global_transform = head.global_transform
 
 	change_bar.value = timer.time_left *2
+	health_bar.value = health
+	ability_bar.value =ability
+
 
 func _physics_process(delta):
+	#get keyboard input
+	direction = Vector3.ZERO
+	var h_rot = global_transform.basis.get_euler().y
+	var f_input = Input.get_action_strength("backward") - Input.get_action_strength("forward")
+	var h_input = Input.get_action_strength("right") - Input.get_action_strength("left")
+	direction = Vector3(h_input, 0, f_input).rotated(Vector3.UP, h_rot).normalized()
+	
+	#jumping and gravity
+	if is_on_floor():
+		snap = -get_floor_normal()
+		accel = ACCEL_DEFAULT
+		gravity_vec = Vector3.ZERO
+	else:
+		snap = Vector3.DOWN
+		accel = ACCEL_AIR
+		gravity_vec += Vector3.DOWN * gravity * delta
 		
-	direction = Vector3()
-						
-	move_and_slide(fall, Vector3.UP)
-	
-	if not is_on_floor():
-		fall.y -= gravity
-	
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		fall.y = jump
+		snap = Vector3.ZERO
+		gravity_vec = Vector3.UP * jump
 		jump_num = 1
 	
 	match avalue:
@@ -76,29 +92,14 @@ func _physics_process(delta):
 			double_jump()
 		1:
 			blink()
-	
 	wall_run()
-		
-	if Input.is_action_pressed("move_forward"):
-			
-			direction -= transform.basis.z
-		
-	elif Input.is_action_pressed("move_backward"):
-			
-		direction += transform.basis.z
-							
-	if Input.is_action_pressed("move_left"):
-		
-		direction -= transform.basis.x			
-		
-	elif Input.is_action_pressed("move_right"):
-						
-		direction += transform.basis.x
-			
-		
-	direction = direction.normalized()
-	velocity = velocity.linear_interpolate(direction * speed, acceleration * delta) 
-	velocity = move_and_slide(velocity, Vector3.UP) 
+	#make it move
+	velocity = velocity.linear_interpolate(direction * speed, accel * delta)
+	movement = velocity + gravity_vec
+	
+	move_and_slide_with_snap(movement, snap, Vector3.UP)
+
+
 
 
 func _on_Timer_timeout():
@@ -109,8 +110,10 @@ func _on_Timer_timeout():
 func double_jump():
 	if Input.is_action_just_pressed("jump") and not is_on_floor():
 		if jump_num == 1:
-			fall.y = jump
+			snap = Vector3.ZERO
+			gravity_vec = Vector3.UP * jump
 			jump_num = 0
+
 
 func blink():
 	if Input.is_action_just_pressed("lmb"):
@@ -123,7 +126,5 @@ func wall_run():
 				if is_on_wall():
 					wall_normal = get_slide_collision(0)
 					yield(get_tree().create_timer(0.2), "timeout")
-					fall.y = 0
+					snap.y = 0
 					direction = -wall_normal.normal * speed
-
-
