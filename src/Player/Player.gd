@@ -92,15 +92,11 @@ func _physics_process(delta):
 			double_jump()
 		1:
 			blink()
-	wall_run()
 	#make it move
 	velocity = velocity.linear_interpolate(direction * speed, accel * delta)
 	movement = velocity + gravity_vec
 	
 	move_and_slide_with_snap(movement, snap, Vector3.UP)
-
-
-
 
 func _on_Timer_timeout():
 	Global.mode = !Global.mode
@@ -119,12 +115,3 @@ func blink():
 	if Input.is_action_just_pressed("lmb"):
 		direction *= blink_dist
 
-func wall_run():
-	if w_runnable:		
-		if Input.is_action_pressed("jump"):	
-			if Input.is_action_pressed("move_forward"):
-				if is_on_wall():
-					wall_normal = get_slide_collision(0)
-					yield(get_tree().create_timer(0.2), "timeout")
-					snap.y = 0
-					direction = -wall_normal.normal * speed
