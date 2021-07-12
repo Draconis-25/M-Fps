@@ -1,8 +1,105 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/LVL/Env.tres" type="Environment" id=1]
+[ext_resource path="res://res/Darkgrid.tres" type="Material" id=2]
+[ext_resource path="res://src/Player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://waypoint.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/LVL/Lv4.gd" type="Script" id=5]
+[ext_resource path="res://src/Meshes/Mesh.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/Scenes/Deadline.tscn" type="PackedScene" id=7]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 2, 2, 2 )
 
 [node name="Lv4" type="Spatial"]
+script = ExtResource( 5 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 1 )
+
+[node name="CSGCombiner" type="CSGCombiner" parent="."]
+use_collision = true
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner"]
+width = 6.0
+depth = 6.0
+material = ExtResource( 2 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0 )
+width = 6.0
+depth = 6.0
+material = ExtResource( 2 )
+
+[node name="Area" type="Area" parent="CSGCombiner/CSGBox2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/CSGBox2/Area"]
+shape = SubResource( 1 )
+
+[node name="Position3D" type="Position3D" parent="CSGCombiner/CSGBox2/Area"]
+
+[node name="Waypoint" parent="CSGCombiner/CSGBox2/Area/Position3D" instance=ExtResource( 4 )]
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
+
+[node name="Spatial17" type="Spatial" parent="."]
+
+[node name="Spatial" parent="Spatial17" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5 )
+
+[node name="Spatial2" parent="Spatial17" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -8 )
+
+[node name="Spatial3" parent="Spatial17" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, -8 )
+
+[node name="Spatial4" parent="Spatial17" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 2, -8 )
+
+[node name="Spatial5" parent="Spatial17" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 2, -4 )
+type = 2
+
+[node name="Spatial6" parent="Spatial17" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 3, -1 )
+
+[node name="Spatial7" parent="Spatial17" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 4, 3 )
+
+[node name="Spatial12" parent="Spatial17" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 4, 7 )
+
+[node name="Spatial13" parent="Spatial17" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 5, 7 )
+type = 2
+
+[node name="Spatial14" parent="Spatial17" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 6, 7 )
+
+[node name="Spatial15" parent="Spatial17" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 8, 7 )
+
+[node name="Spatial16" parent="Spatial17" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 8, 4 )
+type = 2
+
+[node name="Spatial8" parent="Spatial17" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 4, 3 )
+type = 2
+
+[node name="Spatial9" parent="Spatial17" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 7, 0 )
+
+[node name="Spatial10" parent="Spatial17" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 10, 0 )
+type = 2
+
+[node name="Spatial11" parent="Spatial17" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 10, 0 )
+
+[node name="Deadline" parent="." instance=ExtResource( 7 )]
+transform = Transform( 17.5, 0, 0, 0, 1, 0, 0, 0, 17.5, 0, -8, 0 )
+
+[connection signal="body_entered" from="CSGCombiner/CSGBox2/Area" to="." method="_on_Area_body_entered"]

@@ -155,6 +155,9 @@ Note: In blink mode, if you can press jump&lmb in the right timing you will get 
 WARNING: Some Levels Requires a High Level Of Luck"
 autowrap = true
 uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label2" type="Label" parent="."]
 anchor_left = 0.39625
